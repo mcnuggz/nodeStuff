@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/public/styles/main.css" />
+    </head>
+    <body>
+        <h1 class="main-message">Hello there!</h1>
+        <p>
+            This isn't here to look pretty, but to build skills on file parsing
+            with a Express / Node server
+        </p>
+        <div>
+            <form enctype="multipart/form-data">
+                <input
+                    type="file"
+                    name="fileUpload"
+                    id="fileUpload"
+                    onchange="parseFile(this)" />
+            </form>
+        </div>
+        <div
+            id="fileContents"
+            style="
+                background: gray;
+                color: white;
+                padding: 10px;
+                margin-top: 10px;
+            "></div>
+        <script>
+            function parseFile(input) {
+                let url = input.value;
+                let file = input.files[0];
+                let reader = new FileReader();
+                let displayFile = (e) => {
+                    document.getElementById("fileContents").innerHTML =
+                        e.target.result;
+                };
+
+                let onReaderLoad = (f) => {
+                    return displayFile;
+                };
+
+                reader.onload = onReaderLoad(file);
+                reader.readAsText(file);
+            }
+            console.info("[Event] File uploaded");
+        </script>
+    </body>
+</html>
